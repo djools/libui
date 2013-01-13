@@ -18,13 +18,28 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 
+/**
+ * LicensePane holding a JEditorPane (holding the License) and optionally an
+ * accept/decline radio bar.
+ */
 public class LicensePane extends JPanel implements ActionListener {
+
 	private static final long serialVersionUID = -4398407266003368351L;
 
 	private JRadioButton rbAccept, rbDecline;
 
 	private final Collection<LicenseCheckListener> listeners;
 
+	/**
+	 * LicensePane constructor
+	 *
+	 * @param licensePath
+	 *            - the path to the file to be displayed
+	 * @param hasUserInput
+	 *            - set to true to make radio options (accept/decline)
+	 *            available; false otherwise
+	 * @throws IOException
+	 */
 	public LicensePane(String licensePath, boolean hasUserInput)
 			throws IOException {
 		super(new BorderLayout());

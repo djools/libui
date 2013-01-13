@@ -5,11 +5,25 @@ import java.io.IOException;
 
 import javax.swing.JFrame;
 
+/**
+ * LicenseDialog holding a LicensePane.
+ */
 public class LicenseDialog extends JFrame {
 	private static final long serialVersionUID = -2718534305120814936L;
 	LicensePane lp;
 
-	public LicenseDialog(String licensePath, boolean hasUserInput) throws IOException {
+	/**
+	 * LicenseDialog constructor
+	 *
+	 * @param licensePath
+	 *            - the path to the file to be displayed
+	 * @param hasUserInput
+	 *            - set to true to make radio options (accept/decline)
+	 *            available; false otherwise
+	 * @throws IOException
+	 */
+	public LicenseDialog(String licensePath, boolean hasUserInput)
+			throws IOException {
 		super("License");
 		lp = new LicensePane(licensePath, hasUserInput);
 		setContentPane(lp);
