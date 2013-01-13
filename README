@@ -1,0 +1,140 @@
+** package com.jde.ui.wizard **
+
+Wizard is a Java implementation of a wizard (as seen in most of installation tools)
+
+The purpose of the Wizard class is to act as a container providing navigation 
+bar to walk through generic pages (WizardPage) as most of wizards are designed.
+
+Here is an example of use:
+
+<snippet>
+// import relevant stuffs here
+
+public class MyGUI implements WizardEventListener {
+
+	public static void main(String[] args) {
+		MyGUI gui = new MyGUI();
+		
+		JFrame f = new JFrame("- Wizard Test -");
+
+		// populate the list here
+		List<WizardPage> l = new ArrayList<WizardPage>();
+		l.add(gui.createPanelA());
+		l.add(gui.createPanelB());
+
+		// creates a new Wizard with the list of component created above
+		Wizard w = new Wizard("img/side-bar.png", l);
+		
+		// registers the listener
+		w.addWizardEventListener(t);
+
+		// set the Wizard Component as 
+		f.setContentPane(w);
+		
+		// pack, etc, and shows up
+		f.pack();
+		f.setVisible(true);
+	}
+
+	protected WizardPage createPanelA() {
+		WizardPage wp;
+		// create a JPanel here and set it to the WizardPage...
+		return wp; 
+	}
+	
+	protected WizardPage createPanelB() {
+		WizardPage wp;
+		// create another JComponent here (JTabbedPane for example)
+		// and set it to the WizardPage...
+		return wp; 
+	}
+
+	@Override
+	public void actionPerformed(WizardEvent we) {
+		//WizardEvent received!  handle them using we.getType()
+	}
+
+}
+</snippet>
+
+Remaining work:
+	- Make a WizardPage "skippable"
+	- Add/Remove WizardPage at runtime
+
+** package com.jde.ui.license **
+
+This package provides both components, LicenseDialog and LicensePane.
+
+LicenseDialog is a JFrame containing LicensePane and providing user input to accept or decline
+license terms agreement. But LicensePane can be used independently of the LicenseDialog and can
+be added to another parent component.
+
+For both components, you can provide your own license file path.
+And they also offer a LicenseCheckListener interface providing user selection (license accepted or
+declined).
+
+Here is an example of use of the LicenseDialog:
+<snippet>
+LicenseDialog ld = new LicenseDialog("/path/to/my/License.txt");
+ld.addLicenseCheckListener(new LicenseCheckListener() {		
+	@Override
+	public void licenseCheckPerformed(LicenseCheckEvent lce) {
+		if(lce.getType() == LicenseCheckEvent.LICENSE_ACCEPTED) {
+			/* license accepted...*/
+		}
+	}
+});
+ld.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+ld.setVisible(true);
+...
+
+</snippet>
+
+Here is an example of use of the LicensePane:
+<snippet>
+
+boolean needUserConfirm = true; // user has to accept or decline license
+
+LicensePane lp = new LicensePane("/path/to/my/License.txt", needUserConfirm);
+lp.addLicenseCheckListener(new LicenseCheckListener() {		
+	@Override
+	public void licenseCheckPerformed(LicenseCheckEvent lce) {
+		if(lce.getType() == LicenseCheckEvent.LICENSE_ACCEPTED) {
+			/* license accepted...*/
+		}
+	}
+});
+myParentComponent.add(lp);
+...
+
+</snippet>
+
+Remaining work:
+	- Handle lang depending on Locale
+
+** package com.jde.ui.about **
+In the same spirit as for com.jde.ui.license package, com.jde.ui.about offers an AboutDialog holding an AboutPane
+that will provide "about" information relative to your software.
+
+Here is the list of customizable fields:
+	- app (String) name of your application [mandatory] 
+	- version (String) version number of your application ("1.3", "2.6.35") [mandatory] 
+	- author (String) your name [mandatory]
+	- email (String) a contact email [optionnal]
+	- site (String) a website [optionnal]
+	- disclaimer (String) a quick disclaimer or description [optionnal]
+	- ImageIcon icon (ImageIcon) the icon of your app [optionnal]
+
+<snippet>
+new AboutPane(
+			"My First App", 
+			"1.0",
+			"Your Name", 
+			"your.name@domain.com",
+			"http://www.domain.com/", 
+			"This is my first application, it does ... and it does not ...", 
+			new ImageIcon("img/logo.png")
+			);
+</snippet>
+	
+	
