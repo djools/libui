@@ -110,7 +110,7 @@ myParentComponent.add(lp);
 </snippet>
 
 Remaining work:
-	- Handle lang depending on Locale
+	- Allow radio buttons texts be customization
 
 ** package com.jde.ui.about **
 In the same spirit as for com.jde.ui.license package, com.jde.ui.about offers an AboutDialog holding an AboutPane
@@ -137,4 +137,5 @@ new AboutPane(
 			);
 </snippet>
 	
-	
+Remaining work:
+	- Add hyperlinks

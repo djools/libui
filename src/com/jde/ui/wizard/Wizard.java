@@ -29,6 +29,11 @@ import javax.swing.JSeparator;
 public class Wizard extends JPanel implements ActionListener {
 	private static final long serialVersionUID = 2859686714323907243L;
 
+	private String NEXT_TEXT = "Next >";
+	private String PREV_TEXT = "< Previous";
+	private String CANCEL_TEXT = "Cancel";
+	private String FINISH_TEXT = "Finish";
+
 	private JPanel cards;
 	private JButton btnNext, btnPrev, btnCancel;
 	private List<WizardPage> pages;
@@ -56,9 +61,9 @@ public class Wizard extends JPanel implements ActionListener {
 	public Wizard(String imgPath, List<WizardPage> pages, Locale l) {
 		super();
 
-		btnNext = createButton("Suivant >", null, this);
-		btnPrev = createButton("< Précédent", null, this);
-		btnCancel = createButton("Annuler", null, this);
+		btnNext = createButton(NEXT_TEXT, null, this);
+		btnPrev = createButton(PREV_TEXT, null, this);
+		btnCancel = createButton(CANCEL_TEXT, null, this);
 
 		btnPrev.setEnabled(false);
 
@@ -152,15 +157,18 @@ public class Wizard extends JPanel implements ActionListener {
 	}
 
 	public void setCancelButtonText(String text) {
-		btnCancel.setText(text);
+		CANCEL_TEXT = text;
+		btnCancel.setText(CANCEL_TEXT);
 	}
 
 	public void setPreviousButtonText(String text) {
-		btnPrev.setText(text);
+		PREV_TEXT = text;
+		btnPrev.setText(PREV_TEXT);
 	}
 
 	public void setNextButtonText(String text) {
-		btnNext.setText(text);
+		NEXT_TEXT = text;
+		btnNext.setText(NEXT_TEXT);
 	}
 
 	public void setNextButtonEnable(boolean enabled) {
@@ -283,13 +291,13 @@ public class Wizard extends JPanel implements ActionListener {
 		if (ev.getSource().equals(btnCancel)) {
 			fireWizardEvent(new WizardEvent(WizardEvent.WIZARD_EVENT_CANCEL));
 		} else if (ev.getSource().equals(btnNext)
-				&& ev.getActionCommand().equals("Finir")) {
+				&& ev.getActionCommand().equals(FINISH_TEXT)) {
 			fireWizardEvent(new WizardEvent(WizardEvent.WIZARD_EVENT_FINISH));
 		} else if (ev.getSource().equals(btnPrev)) {
 			// walk through pages until page0
 			if (currentPage >= 0) {
 				if (currentPage == maxPages)
-					btnNext.setText("Suivant >");
+					btnNext.setText(NEXT_TEXT);
 
 				currentPage--;
 
@@ -307,7 +315,7 @@ public class Wizard extends JPanel implements ActionListener {
 				btnPrev.setEnabled(currentPage != 0);
 
 				if (currentPage == maxPages)
-					btnNext.setText("Finir");
+					btnNext.setText(FINISH_TEXT);
 
 				fireWizardEvent(new WizardEvent(
 						WizardEvent.WIZARD_EVENT_NEXT_PAGE));
