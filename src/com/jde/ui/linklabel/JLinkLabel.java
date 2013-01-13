@@ -18,7 +18,8 @@ public class JLinkLabel extends JLabel implements MouseListener {
 	private static final long serialVersionUID = 5067499154142415159L;
 
 	private String HTML_FORMAT = "<html><body><a href=\"%s\">%s</a></body></html>";
-	private String html, link;
+	private String HTML_VISITED = "<html><body><a href=\"%s\"><span style=\"color:#663366\">%s</span></a></body></html>";
+	private String link;
 
 	/**
 	 * JLinkLabel constructor
@@ -29,13 +30,14 @@ public class JLinkLabel extends JLabel implements MouseListener {
 	 */
 	public JLinkLabel(String link) {
 		this.link = link;
-		html = toHtml(link);
-		setText(html);
+		setText(toHtml(link, false));
 		setCursor(new Cursor(Cursor.HAND_CURSOR));
 		addMouseListener(this);
 	}
 
-	private String toHtml(String l) {
+	private String toHtml(String l, boolean visited) {
+		if (visited)
+			return String.format(HTML_VISITED, l, l);
 		return String.format(HTML_FORMAT, l, l);
 	}
 
@@ -46,7 +48,7 @@ public class JLinkLabel extends JLabel implements MouseListener {
 		} catch (URISyntaxException e) {
 			JOptionPane.showMessageDialog(null, "Failed to open url " + link);
 		}
-
+		setText(toHtml(link, true));
 	}
 
 	@Override
