@@ -11,6 +11,7 @@ import com.jde.ui.about.AboutPane;
 import com.jde.ui.license.LicenseCheckEvent;
 import com.jde.ui.license.LicenseCheckListener;
 import com.jde.ui.license.LicensePane;
+import com.jde.ui.linklabel.JLinkLabel;
 import com.jde.ui.wizard.Wizard;
 import com.jde.ui.wizard.WizardEvent;
 import com.jde.ui.wizard.WizardEventListener;
@@ -75,6 +76,17 @@ public class UiTest {
 		dialog.setVisible(true);
 	}
 
+	private static void testLinkLabel() {
+		JFrame f = new JFrame("- Link label -");
+
+		f.setContentPane(new JLinkLabel("http://www.google.fr"));
+		f.pack();
+
+		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		f.setLocationRelativeTo(null);
+		f.setVisible(true);
+	}
+
 	public static void main(String[] args) {
 
 		if (args.length != 1) {
@@ -87,6 +99,8 @@ public class UiTest {
 			public void run() {
 				if (param.equals("1"))
 					testDialog();
+				else if (param.equals("2"))
+					testLinkLabel();
 				else
 					try {
 						testWizard();

@@ -7,6 +7,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import com.jde.ui.linklabel.JLinkLabel;
+
 /**
  * AboutPane holding details about a software design.
  */
@@ -41,7 +43,10 @@ public class AboutPane extends JPanel {
 		a.add(new JLabel(app + (version != null ? " - version " + version : "")));
 		a.add(new JLabel("Author: " + author
 				+ (email != null ? " - email: <" + email + ">" : "")));
-		a.add(new JLabel(site != null ? "Pease visit " + site : ""));
+
+		if(site != null)
+			a.add(new JLinkLabel(site));
+
 		a.add(new JLabel(disclaimer));
 
 		this.add(new JLabel(icon));
