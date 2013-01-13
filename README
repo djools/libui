@@ -136,6 +136,11 @@ new AboutPane(
 			new ImageIcon("img/logo.png")
 			);
 </snippet>
-	
-Remaining work:
-	- Add hyperlinks
+
+** package com.jde.ui.linklabel **
+The JLinkLabel allows html clickable hyperlinks and opens default web browser when clicked.
+
+Example of use:
+<snippet>
+JLinkLabel label = new JLinkLabel("http://www.domain.com/");
+</snippet>
