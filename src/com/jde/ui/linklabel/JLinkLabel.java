@@ -46,6 +46,7 @@ public class JLinkLabel extends JLabel implements MouseListener {
 		} catch (URISyntaxException e) {
 			JOptionPane.showMessageDialog(null, "Failed to open url " + link);
 		}
+
 	}
 
 	@Override
@@ -76,7 +77,9 @@ public class JLinkLabel extends JLabel implements MouseListener {
 
 		@Override
 		protected Void doInBackground() throws Exception {
-			Desktop.getDesktop().browse(uri);
+			if (Desktop.isDesktopSupported())
+				if (Desktop.getDesktop().isSupported(Desktop.Action.BROWSE))
+					Desktop.getDesktop().browse(uri);
 			return null;
 		}
 
